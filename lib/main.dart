@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:knapsnack/menu.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+import 'package:knapsnack/screens/home.dart';
+import 'package:knapsnack/screens/loading.dart';
+import 'package:knapsnack/screens/add_food.dart';
+import 'package:knapsnack/screens/food_list.dart';
+import 'package:knapsnack/screens/individual_food.dart';
+import 'package:knapsnack/screens/login.dart';
+import 'package:knapsnack/screens/register.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
-        useMaterial3: true,
-      ),
-      home: MyHomePage(),
-    );
-  }
-}
+void main() => runApp(MaterialApp(
+  initialRoute: '/home',
+  routes: {
+    '': (context) => Loading(),
+    '/home': (context) => Home(),
+    '/add_food': (context) => AddFood(),
+    '/food_list': (context) => FoodList(),
+    '/individual_food': (context) => IndividualFood(),
+    '/login': (context) => Login(),
+    '/register': (context) => Register(),
+  },
+));
