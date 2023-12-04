@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 class Consumable {
   int id, price;
   String name, description;
 
-  // Modified constructor
   Consumable({
     required this.id,
     required this.price,
@@ -21,7 +18,7 @@ class Consumable {
     };
   }
 
-  factory Consumable.fromJson(Map <String, dynamic> json) {
+  factory Consumable.fromJson(Map<String, dynamic> json) {
     return Consumable(
       id: json['id'],
       name: json['name'],

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:knapsnack/models/consumable.dart';
+import 'package:knapsnack/utils/constants.dart';
+import 'package:knapsnack/screens/individual_food.dart';
 
 class FoodList extends StatefulWidget {
   const FoodList({super.key});
@@ -23,17 +25,16 @@ class _FoodListPageState extends State<FoodList> {
 
   _retrieveConsumables() async {
     consumables = [];
-    List response = json.decode((await client.get(Uri.parse('http://192.168.56.1:8000/consumables/'))).body);
+    List response = json
+        .decode((await client.get(Uri.parse(APIConstants.consumables))).body);
     response.forEach((element) {
       consumables.add(Consumable.fromMap(element));
     });
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   void _deleteNote(int id) async {
-    await client.delete(Uri.parse('http://192.168.56.1:8000/consumables/$id/delete/'));
+    await client.delete(Uri.parse(APIConstants.deleteConsumable(id)));
     _retrieveConsumables();
   }
 
@@ -56,7 +57,15 @@ class _FoodListPageState extends State<FoodList> {
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
               title: Text(consumables[index].name),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        FoodDetailPage(consumable: consumables[index]),
+                  ),
+                );
+              },
               trailing: IconButton(
                 icon: Icon(Icons.delete),
                 onPressed: () => _deleteNote(consumables[index].id),
@@ -64,7 +73,7 @@ class _FoodListPageState extends State<FoodList> {
             );
           },
         ),
-      )
+      ),
     );
   }
 }
