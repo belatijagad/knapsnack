@@ -17,39 +17,38 @@ class _LeftDrawerState extends State<LeftDrawer> {
           const UserAccountsDrawerHeader(
             accountName: Text("Tests"),
             accountEmail: Text("test@test.com"),
-            currentAccountPicture: CircleAvatar(
-              child: Icon(Icons.account_circle, size: 50.0)
-            ),
+            currentAccountPicture:
+                CircleAvatar(child: Icon(Icons.account_circle, size: 50.0)),
             decoration: BoxDecoration(color: Colors.red),
           ),
           ListTile(
-            leading: const Icon(Icons.message),
-            title: const Text('Tambah Makanan'),
-            onTap: () {
-              Navigator.pushNamed(context, '/add_food');
-            }
-          ),
+              leading: const Icon(Icons.message),
+              title: const Text('Tambah Makanan'),
+              tileColor: Colors.yellow,
+              onTap: () {
+                Navigator.pushNamed(context, '/add_food');
+              }),
           ListTile(
-            leading: const Icon(Icons.account_box),
-            title: const Text('Lihat Makanan'),
-            onTap: () {
-              Navigator.pushNamed(context, '/food_list');
-            }
-          ),
+              leading: const Icon(Icons.account_box),
+              title: const Text('Lihat Makanan'),
+              tileColor: Colors.blue,
+              onTap: () {
+                Navigator.pushNamed(context, '/food_list');
+              }),
           ListTile(
               leading: const Icon(Icons.message),
               title: const Text('Login'),
+              tileColor: Colors.amber,
               onTap: () {
                 Navigator.pushNamed(context, '/login');
-              }
-          ),
+              }),
           ListTile(
               leading: const Icon(Icons.message),
               title: const Text('Register'),
+              tileColor: Colors.red,
               onTap: () {
                 Navigator.pushNamed(context, '/register');
-              }
-          ),
+              }),
         ],
       ),
     );
