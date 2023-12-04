@@ -1,25 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:knapsnack/screens/home.dart';
 import 'dart:convert';
 import 'package:knapsnack/utils/constants.dart';
-
-// class AddFood extends StatelessWidget {
-//   const AddFood({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.grey,
-//       appBar: AppBar(
-//         backgroundColor: Colors.blue,
-//         title: const Text('Tambah makanan'),
-//         centerTitle: true,
-//         elevation: 0,
-//       ),
-//       body: const Text('tambah'),
-//     );
-//   }
-// }
 
 class AddFoodScreen extends StatefulWidget {
   @override
@@ -31,7 +14,34 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
 
+  bool _validateInput() {
+    if (_nameController.text.isEmpty ||
+        _descriptionController.text.isEmpty ||
+        _priceController.text.isEmpty) {
+      return false;
+    }
+    return true;
+  }
+
+  bool _validatePrice() {
+    return int.tryParse(_priceController.text) != null;
+  }
+
   Future<void> _createFood() async {
+    if (!_validateInput()) {
+      // Handle input tidak valid (misalnya, menampilkan SnackBar)
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Semua field harus diisi!')),
+      );
+      return; // Keluar dari fungsi jika input tidak valid
+    }
+
+    if (!_validatePrice()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Tolong masukkan nominal yang valid!')),
+      );
+      return;
+    }
     var response = await http.post(
       Uri.parse(APIConstants.createConsumables),
       headers: <String, String>{
@@ -45,7 +55,11 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
     );
 
     if (response.statusCode == 200) {
-      // Handle successful registration (e.g., navigate to login page)
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Berhasil menambahkan makanan!')),
+      );
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const Home()));
     } else {
       // Handle error (e.g., show error message)
     }

@@ -18,8 +18,8 @@ class FoodDetailPage extends StatelessWidget {
             Text(consumable.name,
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
             SizedBox(height: 8),
-            Text(consumable.description),
-            Text(consumable.price.toString()),
+            Text('Deskripsi: ${consumable.description}'),
+            Text('Harga: Rp${consumable.price.toString()}'),
             // Add more item details here
           ],
         ),

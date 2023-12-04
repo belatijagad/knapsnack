@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
       } else {
         // Handle error response
         setState(() {
-          _errorMessage = 'Invalid credentials or server error';
+          _errorMessage = 'Kredensial salah!';
         });
       }
     } catch (e) {

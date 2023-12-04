@@ -55,20 +55,29 @@ class _FoodListPageState extends State<FoodList> {
         child: ListView.builder(
           itemCount: consumables.length,
           itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-              title: Text(consumables[index].name),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        FoodDetailPage(consumable: consumables[index]),
-                  ),
-                );
-              },
-              trailing: IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () => _deleteNote(consumables[index].id),
+            return Card(
+              // Wrap ListTile in a Card
+              child: ListTile(
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(consumables[index].name),
+                    Text('Rp${consumables[index].price}'),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          FoodDetailPage(consumable: consumables[index]),
+                    ),
+                  );
+                },
+                trailing: IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () => _deleteNote(consumables[index].id),
+                ),
               ),
             );
           },

@@ -14,7 +14,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  bool _validateInput() {
+    if (_usernameController.text.isEmpty ||
+        _emailController.text.isEmpty ||
+        _passwordController.text.isEmpty) {
+      return false;
+    }
+    return true;
+  }
+
   Future<void> _registerUser() async {
+    if (!_validateInput()) {
+      // Handle input tidak valid (misalnya, menampilkan SnackBar)
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Semua field harus diisi!')),
+      );
+      return; // Keluar dari fungsi jika input tidak valid
+    }
+
     var response = await http.post(
       Uri.parse(APIConstants.register),
       headers: <String, String>{
@@ -31,8 +48,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
       // Handle successful registration (e.g., navigate to login page)
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const Home()));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Berhasil mendaftarkan akun!')),
+      );
     } else {
-      // Handle error (e.g., show error message)
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Ada yang salah!')),
+      );
     }
   }
 

@@ -13,11 +13,13 @@ class Home extends StatelessWidget {
         centerTitle: true,
       ),
       body: const Center(
-        child: Text("Hello worldo!"),
+        child: Text("Selamat datang di aplikasi ini!"),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Text("click me"),
-        onPressed: () {},
+        child: const Icon(Icons.fastfood),
+        onPressed: () {
+          Navigator.pushNamed(context, '/food_list');
+        },
       ),
     );
   }
